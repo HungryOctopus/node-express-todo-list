@@ -1,4 +1,9 @@
 <h3>{{todo}}</h3>
-<form method='POST' action='/publication{{publication._id}}/delete'>
-  <button type='submit'>Delete Publication</button>
+
+{{!-- <form method='POST' action='/publication/{{_id}}/edit'>
+  <button type='submit'>Edit</button>
+</form> --}}
+
+<form method='POST' action='/publication/{{_id}}/delete'>
+  <button type='submit'>Delete</button>
 </form>

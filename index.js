@@ -46,51 +46,39 @@ app.post('/', (request, response, next) => {
     });
 });
 
-/* app.get('/publication/:id', (request, response, next) => {
-  const id = request.params.id;
-  Publication.findById(id)
-    .then((publication) => {
-      response.render('publication-detail', { publication });
-    })
-    .catch((error) => {
-      next(error);
-    });
-}); */
-
 /* app.get('/publication/:id/edit', (request, response, next) => {
   const id = request.params.id;
-  Publication.findById(id)
-    .then((publication) => {
-      response.render('publication-edit', { publication });
+  Task.findById(id)
+    .then((taskToEdit) => {
+      response.render('/', { task: taskToEdit });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+app.post('/publication/:id/edit', (request, response, next) => {
+  const id = request.params.id;
+  const todo = request.params.todo;
+  Task.findByIdAndUpdate(id, todo, { new: true })
+    .then((updatedTask) => {
+      response.redirect('/');
     })
     .catch((error) => {
       next(error);
     });
 }); */
 
-/* app.post('/publication/:id/edit', (request, response, next) => {
+app.post('/publication/:id/delete', (request, response, next) => {
   const id = request.params.id;
-  const title = request.body.title;
-  const url = request.body.url;
-  Publication.findByIdAndUpdate(id, { title, url })
+  Task.findByIdAndDelete(id)
     .then(() => {
-      response.redirect(`/publication/${id}`);
+      response.redirect('/');
     })
     .catch((error) => {
       next(error);
     });
-}); */
-
-/* app.post('/publication/delete', (request, response, next) => {
-  const id = request.params.id;
-  Publication.findByIdAndDelete(id)
-    .then(() => {
-      response.redirect(`/`);
-    })
-    .catch((error) => {
-      next(error);
-    });
-}); */
+});
 
 app.get('*', (request, response, next) => {
   next(new Error('NOT_FOUND'));
